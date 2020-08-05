@@ -1,93 +1,50 @@
-//generating pin number
-function pinGenerate(){
-    const randomPin= Math.floor(Math.random() * 8999 + 1000);
-    document.getElementById("generate-num").value = randomPin;
-    document.getElementById("input-number").value='';
+//random number generation
+document.getElementById("generate-pin").addEventListener('click', function(){
+    const randomNumber = Math.floor(Math.random() * 8999 + 1000);
+    document.getElementById("random-number").value = randomNumber;
+    document.getElementById("pin-number").value = "";
+})
+
+//enter pin num
+function inputNumber(number){
+    document.getElementById("pin-number").value = document.getElementById("pin-number").value+number;
 }
-
-//submitting pin number
-
-function inputButton(num){
-    document.getElementById("input-number").value= document.getElementById("input-number").value+ num;
-    
-    
-  
-    
+//clear all digit by C
+function clearAll(){
+    document.getElementById("pin-number").value = "";
 }
-// clearing all input number
-
-function clearNumber(){
-    document.getElementById("input-number").value='';          
-    
-}
-
-// removing value one by one
+// remove digit one by one
 function removeNumber(){
-    var stringInput = document.getElementById("input-number").value; 
-    var inputLength = stringInput.length
-    var remove = stringInput.slice(0,inputLength-1);
-    document.getElementById("input-number").value = remove;
+    var pinNumber = document.getElementById("pin-number").value;
+    var pinNumberLength = pinNumber.length;
+    document.getElementById("pin-number").value = pinNumber.slice(0,pinNumberLength-1);
+
+}
+// pin mathcer 
+function submitButton(){  
+        if(document.getElementById("random-number").value == parseInt(document.getElementById("pin-number").value)){
+            document.getElementById("pin-not-match").style.display = 'none';
+            document.getElementById("pin-match").style.display = 'block';
+            document.getElementById("submit-button").disabled = true;
+        }
+        else{            
+            document.getElementById("pin-match").style.display = 'none';
+            document.getElementById("pin-not-match").style.display = 'block';
+        }  
 }
 
-//matching pin numbers
-  function matchPin(){
-   
-    let inputNumber = document.getElementById("input-number").value;
-    let generatedNumber = document.getElementById("generate-num").value;
-
-    if(inputNumber == generatedNumber){
-
-    document.getElementById("matched").style.display= "block"; 
-    document.getElementById("tryAgain").style.display= "none";
-    document.getElementById("submitBtn").disabled = true;
-     
-   }
-   if(inputNumber !== generatedNumber){
-
-    document.getElementById("tryAgain").style.display= "block";
-    document.getElementById("matched").style.display= "none";
-    
-
-   }
-   if (inputNumber == "" && generatedNumber == "") {
-     alert('No Pin/Please Generate Your Pin First');
-     document.getElementById("tryAgain").style.display= "none";
-     document.getElementById("matched").style.display= "none";
-    
-     }
-     if(inputNumber.length <=0 || generatedNumber.length<=0){
-
-        alert('No Pin/Please Generate Your Pin First');
-        
-
-        document.getElementById("tryAgain").style.display= "none";
-        document.getElementById("matched").style.display= "none";
-        
-    
-       }
-
-    
-}
-    
-// action left section
-
-
-function actionLeft() {
-    const inputNumber= document.getElementById("input-number").value;
-    var stringAction= document.getElementById("actionLeft").innerText;
+//3 try left
+function leftAction() {
+    const inputNumber= document.getElementById("pin-number").value;
+    var stringAction= document.getElementById("left-action").innerText;
     var intAction = parseInt(stringAction);
     if (intAction > 0 && inputNumber.length>0){
         intAction--;
-        const actionUpdate=document.getElementById("actionLeft");
-        actionUpdate.innerText=intAction;
-        
+        const actionUpdate=document.getElementById("left-action");
+        actionUpdate.innerText=intAction;       
     }
     if (intAction == 0 ){
-        document.getElementById("actionLeft").disabled = true;
-        document.getElementById("submitBtn").disabled = true;
-        
-    }
-    
-    
-        
+        document.getElementById("left-action").disabled = true;
+        document.getElementById("submit-button").disabled = true;    
+    }      
 }
